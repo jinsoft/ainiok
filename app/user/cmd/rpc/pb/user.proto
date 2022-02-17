@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "pb";
+
+// 注册
+message RegisterReq{
+  string nickname = 1;
+  string mobile = 2;
+  string password = 3;
+  int64 gender = 4;
+}
+
+// 登录
+message LoginReq {
+  string mobile = 1;
+  string password = 2;
+}
+
+// 获取用户信息
+message IdReq{
+  int64 id = 1;
+}
+
+message UserInfoReply {
+  int64 id = 1;
+  string nickname = 2;
+  string mobile = 3;
+  string gender = 4;
+}
+
+service User {
+  rpc Register(RegisterReq) returns(UserInfoReply);
+  rpc Login(LoginReq) returns(UserInfoReply);
+  rpc GetUser(IdReq) returns(UserInfoReply);
+}
+
+

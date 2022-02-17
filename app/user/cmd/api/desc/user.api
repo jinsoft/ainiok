@@ -1,0 +1,35 @@
+syntax = "v1"
+
+info(
+	title: "用户服务"
+	desc: "用户服务"
+	author: "ainiok"
+	email: "job@ainiok.com"
+	version: "v1"
+)
+
+type (
+	RegisterReq {
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+
+	RegisterResp {
+		Id       int64  `json:"id"`
+		Nickname string `json:"nickname"`
+		Gender   int64  `json:"gender"`
+		Mobile   string `json:"mobile"`
+	}
+)
+
+// 用户模块v1版本接口
+@server(
+	prefix: user/v1
+	group: user
+)
+
+service user {
+	@doc "注册"
+	@handler register
+	post /register (RegisterReq) returns (RegisterResp)
+}
