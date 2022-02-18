@@ -26,12 +26,10 @@ func NewRegisterLogic(ctx context.Context, svcCtx *svc.ServiceContext) RegisterL
 }
 
 func (l *RegisterLogic) Register(req types.RegisterReq) (resp *types.RegisterResp, err error) {
-	// todo: add your logic here and delete this line
+	// todo: 参数校验
 	registerResp, err := l.svcCtx.UserRpc.Register(l.ctx, &user.RegisterReq{
-		Nickname: "ainiok",
-		Password: "123456",
-		Mobile:   "1888888888",
-		Gender:   1,
+		Password: req.Password,
+		Mobile:   req.Mobile,
 	})
 	if err != nil {
 		return nil, errors.Wrapf(err, "req:%v", req)

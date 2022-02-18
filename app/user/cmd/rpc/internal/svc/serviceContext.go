@@ -1,13 +1,25 @@
 package svc
 
-import "github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/config"
+import (
+	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/config"
+	"github.com/jinsoft/ainiok/app/user/model"
+	"github.com/tal-tech/go-zero/core/stores/redis"
+	"github.com/tal-tech/go-zero/core/stores/sqlx"
+)
 
 type ServiceContext struct {
-	Config config.Config
+	Config      config.Config
+	RedisClient *redis.Redis
+
+	// model
+	UserModel model.UserModel
 }
 
 func NewServiceContext(c config.Config) *ServiceContext {
 	return &ServiceContext{
-		Config: c,
+		Config:      c,
+		RedisClient: redis.NewRedis(c.Redis.Host, c.Redis.Type),
+
+		UserModel: model.NewUserModel(sqlx.NewMysql(c.DB.DataSource), c.Cache),
 	}
 }
