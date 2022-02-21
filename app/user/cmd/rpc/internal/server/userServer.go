@@ -26,7 +26,7 @@ func (s *UserServer) Register(ctx context.Context, in *pb.RegisterReq) (*pb.User
 	return l.Register(in)
 }
 
-func (s *UserServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.UserInfoReply, error) {
+func (s *UserServer) Login(ctx context.Context, in *pb.LoginReq) (*pb.LoginReply, error) {
 	l := logic.NewLoginLogic(ctx, s.svcCtx)
 	return l.Login(in)
 }

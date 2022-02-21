@@ -58,7 +58,7 @@ func (l *RegisterLogic) Register(in *pb.RegisterReq) (*pb.UserInfoReply, error) 
 		return nil, errors.Wrapf(errors.New("获取插入的id失败"), "err:%v,user:%v", err, user)
 	}
 
-	// todo: 完成登陆
+	// todo: 完成登录
 
 	return &pb.UserInfoReply{
 		Id:       lastId,

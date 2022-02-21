@@ -18,6 +18,12 @@ message LoginReq {
   string password = 2;
 }
 
+message LoginReply {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
+}
+
 // 获取用户信息
 message IdReq{
   int64 id = 1;
@@ -32,7 +38,7 @@ message UserInfoReply {
 
 service User {
   rpc Register(RegisterReq) returns(UserInfoReply);
-  rpc Login(LoginReq) returns(UserInfoReply);
+  rpc Login(LoginReq) returns(LoginReply);
   rpc GetUser(IdReq) returns(UserInfoReply);
 }
 

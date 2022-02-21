@@ -12,3 +12,24 @@ type RegisterResp struct {
 	Gender   int64  `json:"gender"`
 	Mobile   string `json:"mobile"`
 }
+
+type LoginReq struct {
+	Mobile   string `json:"mobile"`
+	Password string `json:"password"`
+}
+
+type LoginResp struct {
+	AccessToken  string `json:"accessToken"`
+	AccessExpire int64  `json:"accessExpire"`
+}
+
+type UserInfoReq struct {
+	Id int64 `path:"id"`
+}
+
+type UserInfoResp struct {
+	Id       int64  `json:"id"`
+	Nickname string `json:"nickname"`
+	Gender   string `json:"gender"`
+	Mobile   string `json:"mobile"`
+}

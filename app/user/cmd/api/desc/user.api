@@ -8,6 +8,7 @@ info(
 	version: "v1"
 )
 
+// 注册
 type (
 	RegisterReq {
 		Mobile   string `json:"mobile"`
@@ -22,6 +23,32 @@ type (
 	}
 )
 
+// 登录
+type (
+	LoginReq {
+		Mobile   string `json:"mobile"`
+		Password string `json:"password"`
+	}
+	LoginResp {
+		AccessToken  string `json:"accessToken"`
+		AccessExpire int64  `json:"accessExpire"`
+	}
+)
+
+// 获取用户信息
+type (
+	UserInfoReq {
+		Id int64 `path:"id"`
+	}
+
+	UserInfoResp {
+		Id       int64  `json:"id"`
+		Nickname string `json:"nickname"`
+		Gender   string `json:"gender"`
+		Mobile   string `json:"mobile"`
+	}
+)
+
 // 用户模块v1版本接口
 @server(
 	prefix: user/v1
@@ -32,4 +59,20 @@ service user {
 	@doc "注册"
 	@handler register
 	post /register (RegisterReq) returns (RegisterResp)
+	
+	@doc "登录"
+	@handler loginWithPwd
+	post /login (LoginReq) returns (LoginResp)
+}
+
+@server(
+	prefix: user/v1
+	jwt: JwtAuth
+	group: user
+)
+
+service user {
+	@doc "获取用户信息"
+	@handler detail
+	get /:id (UserInfoResp)
 }
