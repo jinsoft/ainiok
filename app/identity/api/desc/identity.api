@@ -1,0 +1,30 @@
+syntax = "v1"
+
+info(
+	title: "授权认证服务"
+	desc: "授权认证服务"
+	author: "ainiok"
+	email: "job@ainiok.com"
+	version: "v1"
+)
+
+type (
+	VerifyTokenReq {
+	}
+
+	VerifyTokenResp {
+		UserId int64 `json:"userId"`
+		Ok     bool  `json:"ok"`
+	}
+)
+
+@server(
+	prefix: identity/v1
+	group: verify
+)
+
+service identity {
+	@doc "验证token"
+	@handler token
+	get /verify/token (VerifyTokenReq) returns (VerifyTokenResp)
+}

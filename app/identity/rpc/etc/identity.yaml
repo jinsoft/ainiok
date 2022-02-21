@@ -1,0 +1,14 @@
+Name: identity.rpc
+ListenOn: 127.0.0.1:5210
+Etcd:
+  Hosts:
+    - 127.0.0.1:2379
+  Key: identity.rpc
+
+JwtAuth:
+  AccessSecret: 93576ba1-90a5-11ec-a565-0a002700000c
+  AccessExpire: 31536000
+
+Redis:
+  Host: 127.0.0.1:6379
+  Type: node
