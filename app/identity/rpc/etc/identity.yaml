@@ -6,7 +6,7 @@ Etcd:
   Key: identity.rpc
 
 JwtAuth:
-  AccessSecret: 93576ba1-90a5-11ec-a565-0a002700000c
+  AccessSecret: ae0536f9-6450-4606-8e13-5a19ed505ea0
   AccessExpire: 31536000
 
 Redis:
