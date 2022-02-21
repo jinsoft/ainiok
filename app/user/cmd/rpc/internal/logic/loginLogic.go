@@ -2,7 +2,6 @@ package logic
 
 import (
 	"context"
-	"fmt"
 	"github.com/jinsoft/ainiok/app/identity/rpc/identity"
 	"github.com/jinsoft/ainiok/app/user/model"
 	"github.com/jinsoft/ainiok/common/tool"
@@ -46,21 +45,11 @@ func (l *LoginLogic) Login(in *pb.LoginReq) (*pb.LoginReply, error) {
 	if err != nil {
 		return nil, errors.Wrapf(errors.New("生成token错误"), "IdentityRpc GenerateToken error, userId: %d", userId)
 	}
-	fmt.Println("******")
-	fmt.Println(resp)
-
-	loginRsp := &pb.LoginReply{
+	return &pb.LoginReply{
 		AccessToken:  resp.AccessToken,
 		AccessExpire: resp.AccessExpire,
 		RefreshAfter: resp.RefreshAfter,
-	}
-	fmt.Println(loginRsp)
-	return loginRsp, nil
-	//return &pb.LoginReply{
-	//	AccessToken:  resp.AccessToken,
-	//	AccessExpire: resp.AccessExpire,
-	//	RefreshAfter: resp.RefreshAfter,
-	//}, nil
+	}, nil
 }
 
 func (l *LoginLogic) LoginByPassword(mobile, password string) (int64, error) {
