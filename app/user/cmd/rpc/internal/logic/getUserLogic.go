@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/jinsoft/ainiok/app/user/model"
 	"github.com/jinsoft/ainiok/common/tool"
+	"github.com/jinsoft/ainiok/common/xerr"
 	"github.com/pkg/errors"
 
 	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/svc"
@@ -17,6 +18,8 @@ type GetUserLogic struct {
 	svcCtx *svc.ServiceContext
 	logx.Logger
 }
+
+var UserNotExistsError = xerr.NewErrCode(xerr.UserNotExists)
 
 func NewGetUserLogic(ctx context.Context, svcCtx *svc.ServiceContext) *GetUserLogic {
 	return &GetUserLogic{
@@ -33,7 +36,7 @@ func (l *GetUserLogic) GetUser(in *pb.IdReq) (*pb.UserInfoReply, error) {
 		return nil, errors.Wrapf(errors.New("数据库错误"), "查询失败, id:%d, err:%v", in.Id, err)
 	}
 	if user == nil {
-		return nil, errors.Wrapf(errors.New("用户不存在"), "id:%d", in.Id)
+		return nil, errors.Wrapf(UserNotExistsError, "id:%d", in.Id)
 	}
 
 	return &pb.UserInfoReply{

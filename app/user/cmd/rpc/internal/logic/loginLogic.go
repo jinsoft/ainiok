@@ -3,13 +3,11 @@ package logic
 import (
 	"context"
 	"github.com/jinsoft/ainiok/app/identity/rpc/identity"
+	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/svc"
+	"github.com/jinsoft/ainiok/app/user/cmd/rpc/pb"
 	"github.com/jinsoft/ainiok/app/user/model"
 	"github.com/jinsoft/ainiok/common/tool"
 	"github.com/pkg/errors"
-
-	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/svc"
-	"github.com/jinsoft/ainiok/app/user/cmd/rpc/pb"
-
 	"github.com/tal-tech/go-zero/core/logx"
 )
 
@@ -58,7 +56,7 @@ func (l *LoginLogic) LoginByPassword(mobile, password string) (int64, error) {
 		return 0, errors.Wrapf(errors.New("查询失败"), "账号密码登录查询失败, mobile:%s, err:%v", mobile, err)
 	}
 	if user == nil {
-		return 0, errors.Wrapf(errors.New("用户不存在"), "mobile:%s", mobile)
+		return 0, errors.Wrapf(UserNotExistsError, "mobile:%s", mobile)
 	}
 	if tool.MD5(password) != user.Password {
 		return 0, errors.Wrapf(errors.New("密码错误"), "密码错误")

@@ -1,0 +1,11 @@
+syntax = "v1"
+
+info(
+    title: "用户基础信息"
+    desc: "用户基础信息"
+    author: "ainiok"
+    email: "job@ainiok.com"
+    version: "v1"
+)
+
+

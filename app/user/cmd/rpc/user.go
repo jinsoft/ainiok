@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-
 	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/config"
 	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/server"
 	"github.com/jinsoft/ainiok/app/user/cmd/rpc/internal/svc"
@@ -33,6 +32,10 @@ func main() {
 			reflection.Register(grpcServer)
 		}
 	})
+
+	// rpc log
+	//s.AddUnaryInterceptors(rpcServer.LoggerInterceptor)
+
 	defer s.Stop()
 
 	fmt.Printf("Starting rpc server at %s...\n", c.ListenOn)
